@@ -14,7 +14,7 @@
                 <img src="{% static 'images/pp100.jpg' %}" width="70" height="70">
             </div>
             <div class="col-10 ">
-                <h1>Это шапка сайта с логотипом</h1>
+                <h3>Мир книг - печатные и электронные интерактивные книги</h3>
             </div>
         </div>
     </div>
@@ -38,9 +38,8 @@
         <div class="col-2">
             {% block sidebar %}
             <nav class="nav flex-column">
-                <a class="nav-link" href="{% url 'index' %}">Ссылка 1</a>
-                <a class="nav-link" href="{% url 'index' %}">Ссылка 2</a>
-                <a class="nav-link" href="{% url 'index' %}">Ссылка 3</a>
+                <a class="nav-link" href="{% url 'index' %}">Все книги</a>
+                <a class="nav-link" href="{% url 'index' %}">Все авторы</a>
             </nav>
             {% endblock sidebar %}
         </div>
@@ -54,7 +53,7 @@
     <div class="container-fluid">
         <div class="row bg-primary text-center text-white lh-1">
             {% block footer %}
-                <p>Это подвал (footer) всех страниц сайта</p>
+                <p>Интеллектуальные системы. Все права защищены</p>
             {% endblock footer %}
         </div>
     </div>
