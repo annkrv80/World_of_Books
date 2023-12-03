@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Book, Author, BookInstance
+from django.views.generic import ListView, DetailView
 
 
 def index(request):
@@ -8,7 +9,7 @@ def index(request):
     books = Book.objects.all()
     num_books = Book.objects.all().count()
     num_instances = BookInstance.objects.all().count()
-    num_instances_available = BookInstance.objects.filter(status=1).count()
+    num_instances_available = BookInstance.objects.filter(status__exact=1).count()
     authors = Author.objects
     num_authors = Author.objects.count()
     context = {'text_head': text_head,
@@ -16,3 +17,44 @@ def index(request):
                'num_instances_available': num_instances_available,
                'authors': authors, 'num_authors': num_authors}
     return render(request, 'catalog/index.html', context)
+
+
+class BookListView(ListView):
+    model = Book
+    context_object_name = 'books'
+    paginate_by = 3
+
+
+class BookDetailView(DetailView):
+    model = Book
+    context_object_name = 'book'
+
+
+class AuthorListView(ListView):
+    model = Author
+    paginate_by = 4
+
+
+class AuthorDetailView(DetailView):
+    model = Author
+
+
+def about(request):
+    text_head = 'Сведения о компании'
+    name = 'ООО "Интелликтуальные информационные системы"'
+    rab1 = 'Разработка систем на осонове систем искуственного интелекта'
+    rab2 = 'Распознование объектов дорожной инфраструктуры'
+    rab3 = 'Создание графических объектов на основе систем искусственного интилекта'
+    rab4 = 'Создание цифровых интерактивных книг, учебных пособий, автоматизированных обучающих систем'
+    context = {'text_head': text_head, 'name': name, 'rab1': rab1, 'rab2': rab2, 'rab3': rab3, 'rab4': rab4}
+    return render(request, 'catalog/about.html', context)
+
+
+def contact(request):
+    text_head = 'Контакты'
+    name = 'ООО "Интелликтуальные информационные системы"'
+    address = 'Москва, ул. Планерная, д.20, к.1'
+    tel = '495-345-45-45'
+    email = 'iis_info@mail.ru'
+    context = {'text_head': text_head, 'name': name, 'address': address, 'tel':tel , 'email': email}
+    return render(request, 'catalog/contact.html', context)
